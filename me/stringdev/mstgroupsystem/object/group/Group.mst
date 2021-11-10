@@ -113,12 +113,14 @@ class 'Group' {
     end,
 
     updateTopMember = function (self)
-        local allGroupPlayers = getGroupManager():getAllGroupsPlayers()
+        local allGroupPlayers = self:getMembers()
+
         table.sort(allGroupPlayers, function(a, b)
             local valueOne = a:getBalance() or 0
             local valueTwo = b:getBalance() or 0
             return valueOne > valueTwo
         end)
+
         self.memberOfTheMonth = allGroupPlayers[1]
     end,
 

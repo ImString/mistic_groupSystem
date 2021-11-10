@@ -169,7 +169,7 @@ class 'GroupAPI' {
         if (config["ACLHelp"]["State"]) then
             local aclGroup = ACLGroup.get(groupTag)
             if (aclGroup) then
-                aclGroup:addObject(accountName)
+                aclGroup:addObject("user."..accountName)
             end
 
             if (group:getGroupType() == 1) then -- Faction

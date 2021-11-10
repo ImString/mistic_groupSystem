@@ -18,6 +18,12 @@ config = {
         ["Aliases"] = { "groupcreate", "groupCreate", "createGroup" },
     },
 
+    ACLHelp = {
+        State = true, -- Caso queira que esteja ativo coloque "true" se não coloque "false" (istó é o suporte total do groups a ACL)
+        PoliceAcl = "Policie", -- Lembrando que toda vez que o script ligar, ele irá resetar todos os jogadores que estão na determinada ACL
+        FactionAcl = "Faction",
+    },
+    
     GroupsRoles = {
         ["NONE"] = { -- Sem grupo
             Corporation = "Nenhum",
@@ -29,7 +35,7 @@ config = {
         },
         ["MEMBER"] = { -- Cargo de membro
             Corporation = "Recruta",
-            Faction = "Teste",
+            Faction = "Membro",
         },
         ["CAPTAIN"] = { -- Cargo de membro
             Corporation = "Capitao",
@@ -39,12 +45,6 @@ config = {
             Corporation = "Lider",
             Faction = "Dono do Morro",
         },
-    },
-
-    ACLHelp = {
-        State = true, -- Caso queira que esteja ativo coloque "true" se não coloque "false" (istó é o suporte total do groups a ACL)
-        PoliceAcl = "Policie", -- Lembrando que toda vez que o script ligar, ele irá resetar todos os jogadores que estão na determinada ACL
-        FactionAcl = "Faction",
     },
 
     Interface = {
