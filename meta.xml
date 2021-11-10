@@ -25,10 +25,8 @@
 
     <!-- Assets - Images -->
     <file src="me/stringdev/mstgroupsystem/assets/images/logo.png" />
-    <file src="me/stringdev/mstgroupsystem/assets/images/scroll.png" />
-    <file src="me/stringdev/mstgroupsystem/assets/images/background.png_encrypt" download="false" />
-    <file src="me/stringdev/mstgroupsystem/assets/images/card.png_encrypt" download="false" />
-    <file src="me/stringdev/mstgroupsystem/assets/images/card2.png_encrypt" download="false" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/card.png_encrypt" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/card2.png_encrypt" />
 
     <!-- Assets - Images - Avatar -->
     <file src="me/stringdev/mstgroupsystem/assets/images/avatar/captain.png" />
@@ -36,19 +34,6 @@
     <file src="me/stringdev/mstgroupsystem/assets/images/avatar/none.png" />
     <file src="me/stringdev/mstgroupsystem/assets/images/avatar/member.png" />
     <file src="me/stringdev/mstgroupsystem/assets/images/avatar/recruit.png" />
-
-    <!-- Assets - Images - Icons -->
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/econ.png_encrypt" download="false" />
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/home.png_encrypt" download="false" />
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/logs.png_encrypt" download="false" />
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/members.png_encrypt" download="false"/>
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/money.png_encrypt" download="false"/>
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/visible.png_encrypt" download="false"/>
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/user.png_encrypt" download="false"/>
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/usericon.png_encrypt" download="false"/>
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/novisible.png_encrypt" download="false"/>
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/leave.png_encrypt" download="false"/>
-    <file src="me/stringdev/mstgroupsystem/assets/images/icons/trash.png_encrypt" download="false"/>
 
     <!-- Commands -->
     <script src="me/stringdev/mstgroupsystem/commands/CreateGroupCommand.mst" type="server" />
@@ -116,7 +101,6 @@
 
     <!-- Utils -->
     <script src="me/stringdev/mstgroupsystem/utils/IDSystem.mst" type="shared" cache="false" />
-    <script src="me/stringdev/mstgroupsystem/utils/LoaderPNG.mst" type="client" cache="false" />
     <script src="me/stringdev/mstgroupsystem/utils/LoaderSvg.mst" type="client" cache="false" />
     <script src="me/stringdev/mstgroupsystem/utils/Utilitys.mst" type="server" />
 

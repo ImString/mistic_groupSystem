@@ -40,22 +40,22 @@ function onRenderEconomy()
     dxDrawImage(504, 318, 187, 100, "me/stringdev/mstgroupsystem/assets/images/card.png_encrypt", 0, 0, 0, tocolor(255, 255, 255, contentAlpha), false)
     dxDrawText("Saldo Total", 525, 340, 61, 10, tocolor(57, 57, 57, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
     dxDrawText(""..(visibleState[1] and groupMoney or groupMoney:gsub(".", "*")), 525, 367, 11, 17, tocolor(57, 57, 57, contentAlpha), 0.9, font2, "left", "top", false, false, false, false, false)
-    dxDrawImage(661, 388, 15, 15, "me/stringdev/mstgroupsystem/assets/images/icons/"..(visibleState[1] and "visible" or "novisible")..".png_encrypt", 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
+    dxDrawImage(661, 388, 15, 15, (visibleState[1] and visibleIcon or invisibleIcon), 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
 
     dxDrawImage(700, 318, 187, 100, "me/stringdev/mstgroupsystem/assets/images/card.png_encrypt", 0, 0, 0, tocolor(255, 255, 255, contentAlpha), false)
     dxDrawText("Renda Mensal", 721, 340, 80, 10, tocolor(57, 57, 57, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
     dxDrawText(""..(visibleState[2] and groupMonthlyBalance or groupMonthlyBalance:gsub(".", "*")), 721, 367, 11, 17, tocolor(57, 57, 57, contentAlpha), 0.9, font2, "left", "top", false, false, false, false, false)
-    dxDrawImage(857, 388, 15, 15, "me/stringdev/mstgroupsystem/assets/images/icons/"..(visibleState[2] and "visible" or "novisible")..".png_encrypt", 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
+    dxDrawImage(857, 388, 15, 15, (visibleState[2] and visibleIcon or invisibleIcon), 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
 
     dxDrawImage(896, 318, 187, 100, "me/stringdev/mstgroupsystem/assets/images/card.png_encrypt", 0, 0, 0, tocolor(255, 255, 255, contentAlpha), false)
     dxDrawText("Renda Diaria", 918, 340, 73, 10, tocolor(57, 57, 57, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
     dxDrawText(""..(visibleState[3] and groupDailyBalance or groupDailyBalance:gsub(".", "*")), 918, 367, 11, 17, tocolor(57, 57, 57, contentAlpha), 0.9, font2, "left", "top", false, false, false, false, false)
-    dxDrawImage(1053, 388, 15, 15, "me/stringdev/mstgroupsystem/assets/images/icons/"..(visibleState[3] and "visible" or "novisible")..".png_encrypt", 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
+    dxDrawImage(1053, 388, 15, 15, (visibleState[3] and visibleIcon or invisibleIcon), 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
     
     dxDrawImage(1093, 318, 187, 100, "me/stringdev/mstgroupsystem/assets/images/card.png_encrypt", 0, 0, 0, tocolor(255, 255, 255, contentAlpha), false)
     dxDrawText("Renda Total", 1114, 340, 67, 10, tocolor(57, 57, 57, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
     dxDrawText(""..(visibleState[4] and groupTotalBalance or groupTotalBalance:gsub(".", "*")), 1114, 367, 11, 17, tocolor(57, 57, 57, contentAlpha), 0.9, font2, "left", "top", false, false, false, false, false)
-    dxDrawImage(1250, 388, 15, 15, "me/stringdev/mstgroupsystem/assets/images/icons/"..(visibleState[4] and "visible" or "novisible")..".png_encrypt", 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
+    dxDrawImage(1250, 388, 15, 15, (visibleState[4] and visibleIcon or invisibleIcon), 0, 0, 0, tocolor(57, 57, 57, contentAlpha), false)
 
     dxDrawRectangle(504, 487, 810, 42, tocolor(57, 57, 57, contentAlpha), false)
     if (getGroup():getGroupType() == 2) then
@@ -126,19 +126,19 @@ function onRenderEconomy()
     end
 
     if (action["State"] == "AddBalance") then
-        dxDrawImage(464, 222, 891, 636, "me/stringdev/mstgroupsystem/assets/images/background.png_encrypt", 0, 0, 0, tocolor(0, 0, 0, mAlpha), false)
+        dxDrawImage(464, 222, 891, 636, background, 0, 0, 0, tocolor(0, 0, 0, mAlpha), false)
         dxRoundedRectangle(771, 470, 277, 122, false, tocolor(228, 228, 228, actionAlpha), false, false)
         drawButton(771, 551, 277, 41, "ADICIONAR SALDO", { 100, 69, 139, actionAlpha }, { 123, 88, 168, actionAlpha }, { 0.6, font2, "center", "center" } )
-        dxDrawImage(893, 454, 33, 33, "me/stringdev/mstgroupsystem/assets/images/icons/money.png_encrypt", 0, 0, 0, tocolor(255, 255, 255, actionAlpha), false)
+        dxDrawImage(893, 454, 33, 33, moneyIcon, 0, 0, 0, tocolor(255, 255, 255, actionAlpha), false)
         dxDrawRectangle(852, 531, 115, 1, tocolor(205, 205, 205, actionAlpha), false)
         dxDrawEditBox("Digite a Quantia", 771, 504, 277, 18, false, 9, tocolor(42, 42, 42, actionAlpha), "center", addBalanceBox)
     end
     
     if (action["State"] == "RemoveBalance") then
-        dxDrawImage(464, 222, 891, 636, "me/stringdev/mstgroupsystem/assets/images/background.png_encrypt", 0, 0, 0, tocolor(0, 0, 0, mAlpha), false)
+        dxDrawImage(464, 222, 891, 636, background, 0, 0, 0, tocolor(0, 0, 0, mAlpha), false)
         dxRoundedRectangle(771, 470, 277, 122, false, tocolor(228, 228, 228, actionAlpha), false, false)
         drawButton(771, 551, 277, 41, "RETIRAR SALDO", { 100, 69, 139, actionAlpha }, { 123, 88, 168, actionAlpha }, { 0.6, font2, "center", "center" } )
-        dxDrawImage(893, 454, 33, 33, "me/stringdev/mstgroupsystem/assets/images/icons/money.png_encrypt", 0, 0, 0, tocolor(255, 255, 255, actionAlpha), false)
+        dxDrawImage(893, 454, 33, 33, moneyIcon, 0, 0, 0, tocolor(255, 255, 255, actionAlpha), false)
         dxDrawRectangle(852, 531, 115, 1, tocolor(205, 205, 205, actionAlpha), false)
         dxDrawEditBox("Digite a Quantia", 771, 504, 277, 18, false, 9, tocolor(42, 42, 42, actionAlpha), "center", removeBalanceBox)
     end

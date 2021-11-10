@@ -18,7 +18,7 @@ function onRenderCreateGroup()
     local bCAlpha = interpolateBetween(bCAlphaStart, 255, 255, bCAlphaFinal, 0, 0, (getTickCount () - tickBC) / 600, "Linear")
     local i = config["Interface"]
 
-    dxDrawImage(620, 294, 680, 493, "me/stringdev/mstgroupsystem/assets/images/background.png_encrypt", 0, 0, 0, tocolor(i["Background"][1], i["Background"][2], i["Background"][3], bCAlpha), false)
+    dxDrawImage(620, 294, 680, 493, background, 0, 0, 0, tocolor(i["Background"][1], i["Background"][2], i["Background"][3], bCAlpha), false)
     dxDrawText("Coloque as seguintes informações para criar \nseu", 649, 317, 423, 39, tocolor(57, 57, 57, contentAlpha), 1.0, font4, "left", "top", false, false, false, false, false)
     dxDrawText("\ngrupo.", 696, 317, 62, 22, tocolor(57, 57, 57, contentAlpha), 1.0, font2, "left", "top", false, false, false, false, false)
     

@@ -25,27 +25,9 @@ end
 
 _dxDrawImage = dxDrawImage
 function dxDrawImage( x, y, w, h, image, rot, rotcox, rotcoy, color, post)
-	local x, y, w, h = aToR( x, y, w, h)
+	local x, y, w, h = aToR(x, y, w, h)
 
-	if (type(image) == "string") then
-        if not (image:find("png_encrypt")) then
-            return _dxDrawImage(x, y, w, h, image, rot, rotcox, rotcoy, color, post)
-        end
-
-        if not textures[image] then
-            local splitString = split(image, ".")
-            local decryptedImg
-            if ((splitString[#splitString]):sub(-7) == "encrypt") then
-                downloadFile(image)
-            end
-        end
-
-        image = textures[image]
-    end
-
-    if (image ~= nil) then
-        return _dxDrawImage(x, y, w, h, image, rot, rotcox, rotcoy, color, post)
-    end
+    return _dxDrawImage(x, y, w, h, image, rot, rotcox, rotcoy, color, post)
 end
 
 _dxDrawImageSection = dxDrawImageSection
