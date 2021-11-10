@@ -1,0 +1,232 @@
+class 'GroupPlayer' {
+    constructor = function (self)
+        -- self.id = false
+        -- self.name = false -- Account Name
+        -- self.group = false
+        -- self.groupRole = false
+        -- self.drugsSell = false
+        -- self.weaponsSell = false
+        -- self.drugsFabricate = false
+        -- self.weaponsFabricate = false
+        -- self.playersRemand = false
+        -- self.learnedGuns = false
+        -- self.seizedDrugs = false
+        -- self.invitations = false
+        -- self.createdAt = false
+        -- self.updatedAt = false
+    end,
+
+    isOnline = function (self)
+        return self:toPlayer() ~= nil
+    end,
+
+    isLeader = function (self)
+        if (self:getGroupRole().roleSelect == GroupRole():select("LEADER").roleSelect) then
+            return true
+        end
+
+        return false
+    end,
+    
+    isSuperior = function (self)
+        if (self:getGroupRole().roleSelect == GroupRole():select("LEADER").roleSelect) then
+            return true
+        end
+
+        if (self:getGroupRole().roleSelect == GroupRole():select("CAPTAIN").roleSelect) then
+            return true
+        end
+
+        return false
+    end,
+
+    isHaveGroup = function (self)
+        return self.group ~= nil
+    end,
+
+    toPlayer = function (self)
+        return getPlayerFromAccountName(self.name)
+    end,
+
+    getId = function (self)
+        return self.id
+    end,
+
+    setId = function (self, id)
+        if (tonumber(id)) then
+            self.id = tonumber(id)
+        end
+    end,
+
+    getName = function (self)
+        return self.name
+    end,
+
+    setName = function (self, name)
+        self.name = name
+    end,
+
+    getNickName = function (self)
+        return self.nickname
+    end,
+
+    setNickName = function (self, nickname)
+        self.nickname = nickname
+    end,
+    
+    getGroup = function (self)
+        return self.group
+    end,
+
+    setGroup = function (self, group)
+        self.group = group
+    end,
+
+    getGroupRole = function (self)
+        return self.groupRole
+    end,
+
+    setGroupRole = function (self, groupRole)
+        self.groupRole = groupRole
+    end,
+
+    getBalance = function (self)
+        return self.balance
+    end,
+
+    setBalance = function (self, balance)
+        self.balance = balance
+    end,
+
+    addBalance = function (self, balance)
+        self.balance = self.balance + balance
+    end,
+
+    removeBalance = function (self, balance)
+        if (self.balance-balance >= 0) then
+            self.balance = self.balance - balance
+        else
+            self.balance = 0
+        end
+    end,
+
+    isOnline = function (self)
+        return self.online
+    end,
+
+    setOnline = function (self, online)
+        self.online = online
+    end,
+
+    getDrugsSell = function (self)
+        return self.drugsSell
+    end,
+
+    setDrugsSell = function (self, drugsSell)
+        if (tonumber(drugsSell)) then
+            self.drugsSell = drugsSell
+        end
+    end,
+
+    getWeaponsSell = function (self)
+        return self.weaponsSell
+    end,
+
+    setWeaponsSell = function (self, weaponsSell)
+        if (tonumber(weaponsSell)) then
+            self.weaponsSell = weaponsSell
+        end
+    end,
+
+    getDrugsFabricate = function (self)
+        return self.drugsFabricate
+    end,
+
+    setDrugsFabricate = function (self, drugsFabricate)
+        if (tonumber(drugsFabricate)) then
+            self.drugsFabricate = drugsFabricate
+        end
+    end,
+
+    getWeaponsFabricate = function (self)
+        return self.weaponsFabricate
+    end,
+
+    setWeaponsFabricate = function (self, weaponsFabricate)
+        if (tonumber(weaponsFabricate)) then
+            self.weaponsFabricate = weaponsFabricate
+        end
+    end,
+
+    getPlayersRemand = function (self)
+        return self.playersRemand
+    end,
+
+    setPlayerRemand = function (self, playersRemand)
+        if (tonumber(playersRemand)) then
+            self.playersRemand = playersRemand
+        end
+    end,
+
+    getLearnedGuns = function (self)
+        return self.learnedGuns
+    end,
+
+    setLearnedGuns = function (self, learnedGuns)
+        if (tonumber(learnedGuns)) then
+            self.learnedGuns = learnedGuns
+        end
+    end,
+
+    getSeizedDrugs = function (self)
+        return self.seizedDrugs
+    end,
+
+    setSeizedDrugs = function (self, seizedDrugs)
+        if (tonumber(seizedDrugs)) then
+            self.seizedDrugs = seizedDrugs
+        end
+    end,
+
+    getInvitations = function (self)
+        return self.invitations
+    end,
+
+    setInvitations = function (self, invitations)
+        self.invitations = invitations
+    end,
+
+    importInvitation = function (self, groupInvite)
+        table.insert(self.invitations, groupInvite)
+    end,
+
+    getCreatedAt = function (self)
+        return self.createdAt
+    end,
+
+    setCreatedAt = function (self, createdAt)
+        self.createdAt = createdAt
+    end,
+
+    setCreatedAtMillis = function (self)
+        local actualTime = getRealTime()
+        self.createdAt = actualTime.timestamp
+    end,
+
+    getUpdatedAt = function (self)
+        return self.updatedAt
+    end,
+
+    setUpdatedAt = function (self, updatedAt)
+        self.updatedAt = updatedAt
+    end,
+
+    setLastActivityMillis = function (self)
+        local actualTime = getRealTime()
+        self.updatedAt = actualTime.timestamp
+    end,
+
+    compareTo = function (self, other)
+        return self:getName() == other:getName()
+    end,
+}

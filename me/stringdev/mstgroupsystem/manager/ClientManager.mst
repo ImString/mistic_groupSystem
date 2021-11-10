@@ -1,0 +1,12 @@
+function onStartClientSide()
+    font1 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/bold.ttf", 24)
+    font2 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/bold.ttf", 18)
+    font3 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/medium.ttf", 24)
+    font4 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/medium.ttf", 18)
+    font5 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/regular.ttf", 18)
+    font6 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/extrabold.ttf", 21)
+    font7 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/extrabold.ttf", 18)
+    font8 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/semibold.ttf", 24)
+    font9 = dxCreateFont("me/stringdev/mstgroupsystem/assets/fonts/semibold.ttf", 18)
+end
+addEventHandler("onClientResourceStart", resourceRoot, onStartClientSide)

@@ -1,0 +1,352 @@
+class 'GroupAPI' {
+    constructor = function (self)
+    end,
+
+    createGroup = function (self, name, tag, groupType, ownerGp, maxMembers)
+        if not (name) then 
+            return {"Informe um nome invalido.", "error"}
+        end
+
+        if not (tag) then
+            return {"Informe uma tag valida.", "error"}
+        end
+
+        if not (groupType) then
+            return {"Informe um tipo de grupo valido.", "error"}
+        end
+
+        if not (ownerGp) then
+            return {"Informe o ID do dono valido.", "error"}
+        end
+
+        if not (maxMembers) then
+            return {"Quantia maxima de membros invalida.", "error"}
+        end
+
+        local maxMembers = tonumber(maxMembers) or config["MaxMember"]
+        local groupType = tonumber(groupType) or 1
+        local accountName = ownerGp:getName()
+        local groupNew = Group()
+
+        groupNew:setId(getGroupManager():getNewIdGroup())
+        groupNew:setName(name)
+        groupNew:setTag(tag)
+        groupNew:setMaxMembers(maxMembers)
+        groupNew:setBalance(0)
+        groupNew:setGroupType(groupType)
+        groupNew:setOwner(ownerGp)
+        groupNew:setCreatedAtMillis()
+        groupNew:importMember(ownerGp)
+        getSql():insertGroup(groupNew)
+        getGroupManager():importGroup(groupNew)
+        
+        ownerGp:setGroup(groupNew)
+        ownerGp:setGroupRole(GroupRole():select("LEADER"))
+        getSql():updateGroupPlayer(ownerGp)
+
+        local searchPlayerTarget = getGroupManager():getPlayerByGroupPlayer(ownerGp)
+        if (searchPlayerTarget) then
+            searchPlayerTarget:triggerEvent("MST:updateValues", searchPlayerTarget, ownerGp)
+        end
+
+        if (config["ACLHelp"]["State"]) then
+            local aclGroup = ACLGroup.get(tag)
+            if (aclGroup) then
+                aclGroup:destroy()
+            end
+
+            aclGroup = ACLGroup(tag)
+
+            aclGroup:addObject("user."..accountName)
+
+            if (groupNew:getGroupType() == 1) then -- Faction
+                local factionGroup = ACLGroup.get(config["ACLHelp"]["FactionAcl"])
+                factionGroup:addObject("user."..accountName)
+            elseif (groupNew:getGroupType() == 2) then
+                local policeGroup = ACLGroup.get(config["ACLHelp"]["PoliceAcl"])
+                policeGroup:addObject("user."..accountName)
+            end
+        end
+
+        return {"Grupo criado com sucesso.", "success"}
+    end,
+
+    destroyGroup = function (self, groupTag)
+        if not (groupTag) then return end
+
+        local group = getGroupManager():getGroup(groupTag)
+        if not (group) then
+            return {"Este grupo não existe.", "error"}
+        end
+        
+        for _, groupPlayer in ipairs(group:getMembers()) do
+            self:leavePlayer(groupPlayer:getName())
+        end
+
+        getSql():deleteGroup(group)
+        getSql():deleteAllLogs(group)
+        getGroupManager():destroyGroup(group)
+
+        if (config["ACLHelp"]["State"]) then
+            local aclGroup = ACLGroup.get(groupTag)
+            if (aclGroup) then
+                aclGroup:destroy()
+            end
+        end
+
+        return {"Grupo deletado com sucesso.", "success"}
+    end,
+
+    convitePlayer = function (self, accountName, targetAccountName)
+        if not (accountName) then return end
+        if not (targetAccountName) then
+            return "Jogador não encontrado"
+        end
+
+        local playerGP = getGroupManager():getGroupPlayer(accountName)
+        if not (playerGP) then
+            return "Ocorreu um problema"
+        end
+
+        local targetGP = getGroupManager():getGroupPlayer(targetAccountName)
+        if not (targetGP) then 
+            return "Erro ao encontrar o jogador"
+        end
+
+        local playerGroup = playerGP:getGroup()
+        if not (playerGroup) then 
+            return "Você está sem grupo"
+        end
+
+        if (targetGP:getGroup()) then
+            return "Este jogador já está em um grupo"
+        end
+
+        local invite = Invites()
+        invite:setInviteId(#targetGP:getInvitations()+1)
+        invite:setInvited(playerGP:getName())
+        invite:setGroupTagInvite(playerGroup:getTag())
+        invite:setGroupNameInvite(playerGroup:getName())
+        invite:setCreatedAt(getRealTime().timestamp)
+        targetGP:importInvitation(invite)
+        getGroupManager():importGroupPlayer(targetGP)
+
+        return true
+    end,
+
+    joinGroup = function (self, accountName, groupTag)
+        if not (accountName) then return end
+        if not (groupTag) then
+            return "Grupo invalido"
+        end
+
+        local group = getGroupManager():getGroup(groupTag)
+        if not (group) then
+            return {"Este grupo nao foi encontrado", "error"}
+        end
+
+        local playerGP = getGroupManager():getGroupPlayer(accountName)
+        if not (playerGP) then
+            return {"Falha ao encontrar o seu usuario", "error"}
+        end
+
+        local membersTotal = #group:getMembers()+1
+        if (membersTotal > group:getMaxMembers()) then
+            return {"O grupo está lotado.", "error"}
+        end
+
+        local objectClear = { }
+
+        playerGP:setGroup(group)
+        playerGP:setInvitations(objectClear)
+        playerGP:setGroupRole(GroupRole():select("RECRUIT"))
+        group:importMember(playerGP)
+
+        getGroupManager():importGroup(group)
+        getGroupManager():importGroupPlayer(playerGP)
+        SQL():updateGroupPlayer(playerGP)
+
+        if (config["ACLHelp"]["State"]) then
+            local aclGroup = ACLGroup.get(groupTag)
+            if (aclGroup) then
+                aclGroup:addObject(accountName)
+            end
+
+            if (group:getGroupType() == 1) then -- Faction
+                local factionGroup = ACLGroup.get(config["ACLHelp"]["FactionAcl"])
+                factionGroup:addObject("user."..accountName)
+            elseif (group:getGroupType() == 2) then
+                local policeGroup = ACLGroup.get(config["ACLHelp"]["PoliceAcl"])
+                policeGroup:addObject("user."..accountName)
+            end
+        end
+
+        return {"Você entrou no grupo com sucesso.", "success"}
+    end,
+
+    leavePlayer = function (self, accountName)
+        if not (accountName) then return end
+
+        local playerGP = getGroupManager():getGroupPlayer(accountName)
+        if not (playerGP) then
+            return "Falha ao encontrar o seu usuario"
+        end
+
+        local group = playerGP:getGroup()
+        if not (group) then
+            return "Você não está em nenhum grupo"
+        end
+
+        local objectClear = { }
+        playerGP:setGroup(nil)
+        playerGP:setGroupRole(GroupRole():select("NONE"))
+        playerGP:setDrugsSell(0)
+        playerGP:setWeaponsSell(0)
+        playerGP:setDrugsFabricate(0)
+        playerGP:setWeaponsFabricate(0)
+        playerGP:setPlayerRemand(0)
+        playerGP:setLearnedGuns(0)
+        playerGP:setSeizedDrugs(0)
+        playerGP:setInvitations(objectClear)
+        
+        group:removeMember(accountName)
+
+        getGroupManager():importGroup(group)
+        getGroupManager():importGroupPlayer(playerGP)
+        SQL():deleteTransferPlayer(accountName)
+        SQL():updateGroupPlayer(playerGP)
+
+        if (config["ACLHelp"]["State"]) then
+            local aclGroup = ACLGroup.get(group:getTag())
+            if (aclGroup) then
+                aclGroup:removeObject("user."..accountName)
+            end
+
+            if (group:getGroupType() == 1) then -- Faction
+                local factionGroup = ACLGroup.get(config["ACLHelp"]["FactionAcl"])
+                if (factionGroup) then
+                    factionGroup:removeObject("user."..accountName)
+                end
+            elseif (group:getGroupType() == 2) then
+                local policeGroup = ACLGroup.get(config["ACLHelp"]["PoliceAcl"])
+                if (policeGroup) then
+                    policeGroup:removeObject("user."..accountName)
+                end
+            end
+        end
+
+        return true
+    end,
+
+    kickPlayerGroup = function (self, accountName, targetAccountName)
+        if not (accountName) then return end
+        if not (targetAccountName) then return end
+        
+        local msender = getGroupManager():getGroupPlayer(accountName)
+        local target = getGroupManager():getGroupPlayer(targetAccountName)
+        
+        if (msender:getGroup():getTag() ~= target:getGroup():getTag()) then
+            return {"Este jogador não esta no seu grupo.", "error"}
+        end
+        
+        if (target:getGroupRole():toString() == "LEADER") then
+            return {"O líder do grupo não pode ser expulso!", "error"}
+        end
+            
+        if (msender:getGroupRole():toString() == "CAPTAIN" and target:getGroupRole():toString() == "CAPTAIN") then
+			return {"Apenas o líder do grupo pode expulsar ou rebaixar outros capitões.", "error"};
+		end
+
+        getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName(msender:getGroup():getGroupType()):lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." expulso o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+        self:leavePlayer(target:getName())
+        return {"Jogador expulso com sucesso!", "success"}
+    end,
+
+    promotePlayer = function (self, accountName, targetAccountName)
+        if not (accountName) then return end
+        if not (targetAccountName) then return end
+
+        local msender = getGroupManager():getGroupPlayer(accountName)
+        local target = getGroupManager():getGroupPlayer(targetAccountName)
+        local cargoms = msender:getGroupRole():toString()
+		local cargomp = target:getGroupRole():toString()
+
+        if (msender:getGroup():getTag() ~= target:getGroup():getTag()) then
+            return {"Este jogador não esta no seu grupo.", "error"}
+        end
+
+		if (cargomp == "LEADER") then
+			return {removeHex(target:getNickName():gsub("_", " ")) .. " já é o líder do grupo.", "errror"}
+        end
+
+		if (cargomp == "RECRUIT") then
+			target:setGroupRole(GroupRole():select("MEMBER"))
+            getGroupManager():importGroupPlayer(target)
+            SQL():updateGroupPlayer(target)
+            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." promoveu o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Player promovido com sucesso para o cargo de Membro", "success"}
+        end
+
+		if (cargomp == "MEMBER") then
+			if (cargoms == "CAPTAIN") then
+				return {"Apenas o líder do grupo pode promover um membro para capitão", "error"}
+            end
+
+            target:setGroupRole(GroupRole():select("CAPTAIN"))
+            getGroupManager():importGroupPlayer(target)
+            SQL():updateGroupPlayer(target)
+            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." promoveu o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Player promovido com sucesso para o cargo de Capitão.", "success"}
+		end
+
+		if (cargomp == "CAPTAIN") then
+			if (cargoms == "LEADER") then
+				return {"Este jogador é capitão, você não pode transferir a liderança.", "info"}
+            end
+
+			return {"Apenas o líder do grupo pode promover um capitão para líder.", "error"}
+        end
+    end,
+
+    demotePlayer = function (self, accountName, targetAccountName)
+        if not (accountName) then return end
+        if not (targetAccountName) then return end
+
+        local msender = getGroupManager():getGroupPlayer(accountName)
+        local target = getGroupManager():getGroupPlayer(targetAccountName)
+        local cargoms = msender:getGroupRole():toString()
+		local cargomp = target:getGroupRole():toString()
+
+        if (msender:getGroup():getTag() ~= target:getGroup():getTag()) then
+            return {"Este jogador não esta no seu grupo.", "error"}
+        end
+
+        if (cargomp == "LEADER") then
+			return {removeHex(target:getNickName():gsub("_", " ")) .. " é o líder do grupo portanto não pode ser rebaixado.", "error"}
+		end
+
+        if (cargomp == "RECRUIT") then
+			return {"Este jogador já esta no cargo mais baixo do grupo.", "info"}
+		end
+
+        if (cargomp == "MEMBER") then
+            target:setGroupRole(GroupRole():select("RECRUIT"))
+            getGroupManager():importGroupPlayer(target)
+            SQL():updateGroupPlayer(target)
+            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." rebaixou o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Player rebaixado com sucesso para o cargo de Recruta.", "success"}
+		end
+
+        if (cargomp == "CAPTAIN") then
+			if (cargoms == "CAPTAIN") then
+				return {"Apenas o líder do grupo pode rebaixar um capitão.", "error"}
+            end
+
+            target:setGroupRole(GroupRole():select("MEMBER"))
+            getGroupManager():importGroupPlayer(target)
+            SQL():updateGroupPlayer(target)
+            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." rebaixou o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Player rebaixado com sucesso para o cargo de Membro.", "success"}
+		end
+    end,
+}

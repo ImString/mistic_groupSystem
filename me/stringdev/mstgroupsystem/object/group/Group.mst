@@ -1,0 +1,197 @@
+class 'Group' {
+    constructor = function (self)
+        self.members = { }
+        self.logs = { }
+    end,
+
+    getId = function (self)
+        return tonumber(self.id) or 0
+    end,
+    
+    setId = function (self, id)
+        if (tonumber(id)) then
+            self.id = id
+        end
+    end,
+    
+    getName = function (self)
+        return self.name or ""
+    end,
+    
+    setName = function (self, name)
+        self.name = name
+    end,
+    
+    getTag = function (self)
+        return self.tag or ""
+    end,
+    
+    setTag = function (self, tag)
+        self.tag = tag
+    end,
+
+    getMaxMembers = function (self)
+        return tonumber(self.maxMembers) or 0
+    end,
+    
+    setMaxMembers = function (self, maxMembers)
+        if (tonumber(maxMembers)) then
+            self.maxMembers = tonumber(maxMembers)
+        end
+    end,
+    
+    getBalance = function (self)
+        return self.balance or 0
+    end,
+    
+    setBalance = function (self, balance)
+        self.balance = balance
+    end,
+
+    addBalance = function (self, balance)
+        self.balance = self:getBalance() + balance
+    end,
+
+    removeBalance = function (self, balance)
+        if (self.balance-balance >= 0) then
+            self.balance = self:getBalance() - balance
+        else
+            self.balance = 0
+        end
+    end,
+
+    getMonthlyBalance = function (self)
+        return self.monthlyBalance or 0
+    end,
+    
+    setMonthlyBalance = function (self, monthlyBalance)
+        self.monthlyBalance = monthlyBalance
+    end,
+
+    getDailyBalance = function (self)
+        return self.dailyBalance or 0
+    end,
+
+    setDailyBalance = function (self, dailyBalance)
+        self.dailyBalance = dailyBalance
+    end,
+
+    getMaxBalance = function (self)
+        return self.maxBalance or 0
+    end,
+
+    setMaxBalance = function (self, maxBalance)
+        self.maxBalance = maxBalance
+    end,
+
+    addMaxBalance = function (self, maxBalance)
+        self.maxBalance = self:getMaxBalance() + maxBalance
+    end,
+
+    getGroupType = function (self)
+        return self.groupType
+    end,
+    
+    setGroupType = function (self, groupType)
+        self.groupType = groupType
+    end,
+    
+    getOwner = function (self)
+        return self.owner
+    end,
+    
+    setOwner = function (self, owner)
+        self.owner = owner
+    end,
+    
+    getMemberOfTheMonth = function (self)
+        return self.memberOfTheMonth or 0
+    end,
+
+    setMemberOfTheMonth = function (self)
+        self.memberOfTheMonth = memberOfTheMonth
+    end,
+
+    updateTopMember = function (self)
+        local allGroupPlayers = getGroupManager():getAllGroupsPlayers()
+        table.sort(allGroupPlayers, function(a, b)
+            local valueOne = a:getBalance() or 0
+            local valueTwo = b:getBalance() or 0
+            return valueOne > valueTwo
+        end)
+        self.memberOfTheMonth = allGroupPlayers[1]
+    end,
+
+    getCreatedAt = function (self)
+        return self.createdAt
+    end,
+    
+    setCreatedAt = function (self, createdAt)
+        self.createdAt = createdAt
+    end,
+    
+    setCreatedAtMillis = function (self)
+        local actualTime = getRealTime()
+        self.createdAt = actualTime.timestamp
+    end,
+    
+    importLogs = function (self, logs)
+        if not (self.logs[logs]) then
+            table.insert(self.logs, logs)
+        end
+    end,
+
+    getTransferences = function (self)
+        return self.transference
+    end,
+
+    setTransference = function (self, transference)
+        self.transference = transference
+    end,
+
+    addTransference = function (self, transference)
+        table.insert(self.transference, transference)
+    end,
+    
+    getMembers = function (self)
+        local out = { }
+
+        for _, gp in pairs(self.members) do
+            if (gp ~= nil) then
+                table.insert(out, gp)
+            end
+        end
+
+        return out
+    end,
+
+    importMember = function (self, gp)
+        if not (self.members[gp]) then
+            table.insert(self.members, gp)
+        end
+    end,
+
+    removeMember = function (self, accountName)
+        for i, member in ipairs(self.members) do 
+            if (member:getName() == accountName) then
+                self.members[i] = nil
+            end
+        end
+    end,
+
+    setMembers = function (self, members)
+        if (type(members) == "table") then
+            self.members = members
+        end
+    end,
+
+    setLogs = function (self, logs)
+        if (type(logs) == "table") then
+            self.logs = logs
+        end
+    end,
+
+    getLogs = function (self)
+        return self.logs
+    end,
+}

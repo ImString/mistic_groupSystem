@@ -1,0 +1,49 @@
+function IfElse(condition, trueReturn, falseReturn)
+    if (condition == nil) then
+        return falseReturn
+    elseif (condition) then 
+        return trueReturn
+    else
+        return falseReturn 
+    end
+end
+
+function addZero(str)
+    if (str > 10) then
+        return str
+    end
+    return "0"..str
+end
+
+function escapeQuotes(str)
+    if (str == nil) then
+        return ""
+    end
+    return string.gsub(str, "'", "''")
+end
+
+function starts_with(str, start)
+    return str:sub(1, #start) == start
+end
+ 
+function ends_with(str, ending)
+    return ending == "" or str:sub(-#ending) == ending
+end
+
+function table.reverse(t) 
+    local reversedTable = {} 
+    local itemCount = #t  
+    for k, v in ipairs(t) do 
+        reversedTable[itemCount + 1 - k] = v  
+    end 
+    return reversedTable  
+end
+
+function getAllValues(tableReceived)
+    local newTable = { }
+    for i, v in pairs(tableReceived) do
+        table.insert(newTable, v)
+    end
+
+    return newTable
+end

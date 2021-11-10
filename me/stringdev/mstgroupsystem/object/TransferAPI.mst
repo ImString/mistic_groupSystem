@@ -1,0 +1,37 @@
+class 'TransferAPI' {
+    constructor = function (self)
+    end,
+
+    createTransfer = function (self, accountName, tagGroup, amount)
+        if (accountName and tagGroup and amount) then
+            local groupPlayer = GroupManager():getGroupPlayer(accountName)
+            local groupObject = GroupManager():getGroup(tagGroup)
+            local transfer = Transfer()
+            
+            transfer:setId(getSql():getFreeID("mstgroups_transference", "id"))
+            transfer:setUser(groupPlayer)
+            transfer:setGroup(groupObject)
+            transfer:setAmount(amount)
+            transfer:setTransferAt(getRealTime().timestamp)
+            
+            groupObject:addBalance(amount)
+            groupObject:addMaxBalance(amount)
+            groupPlayer:addBalance(amount)
+            getSql():insertTransfer(transfer)
+            getSql():updateGroup(groupObject)
+            getSql():updateGroupPlayer(groupPlayer)
+            getLogsAPI():createLogs(groupObject, "O "..groupPlayer:getGroupRole():getName():lower().." "..removeHex(groupPlayer:getNickName():gsub("_", " ")).."#"..groupPlayer:getId().." depositou R$"..formatNumber(amount, "."), "success")
+        end
+    end,
+    
+    removeBalance = function (self, accountName, tagGroup, amount)
+        if (accountName and tagGroup and amount) then
+            local groupPlayer = GroupManager():getGroupPlayer(accountName)
+            local groupObject = GroupManager():getGroup(tagGroup)
+            
+            groupObject:removeBalance(amount)
+            getSql():updateGroup(groupObject)
+            getLogsAPI():createLogs(groupObject, "O "..groupPlayer:getGroupRole():getName():lower().." "..removeHex(groupPlayer:getNickName():gsub("_", " ")).."#"..groupPlayer:getId().." removeu R$"..formatNumber(amount, "."), "error")
+        end
+    end,
+}

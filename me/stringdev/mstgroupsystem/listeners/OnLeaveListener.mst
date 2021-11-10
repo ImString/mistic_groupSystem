@@ -1,0 +1,16 @@
+function onQuitServer()
+    if not (isHaveProtection()) then return end
+    
+    local player = source
+    if (isGuestAccount(player:getAccount())) then return end
+    
+    local accountName = getAccountName(getPlayerAccount(player))
+
+    local gp = GroupManager():getGroupPlayer(accountName)
+    gp:setLastActivityMillis()
+    gp:setNickName(player:getName())
+    gp:setOnline(false)
+    getGroupManager():importGroupPlayer(gp)
+    SQL():updateGroupPlayer(gp)
+end
+addEventHandler("onPlayerQuit", getRootElement(), onQuitServer)

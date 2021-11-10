@@ -1,0 +1,192 @@
+function invitePlayer(player, idTarget)
+    if not (isHaveProtection()) then return end
+    if not (player) then return end
+    if not (idTarget) then return end
+
+    if not (IDSystem():getPlayerByID(tonumber(idTarget))) then
+        config.notifyS(player, "Informe um jogador valido.", "error")
+        return
+    end
+
+    local targetPlayer = IDSystem():getPlayerByID(tonumber(idTarget))
+    if (targetPlayer == player) then
+        config.notifyS(player, "Você não pode convidar a si mesmo.", "error")
+        return
+    end
+
+    local invitedPlayer = getGroupAPI():convitePlayer(player:getAccount():getName(), targetPlayer:getAccount():getName())
+    if (invitedPlayer ~= true) then
+        config.notifyS(player, invitedPlayer, "error")
+        return
+    end
+
+    config.notifyS(player, "Você convidou o jogador "..removeHex(targetPlayer:getName()).." para a '"..getGroupManager():getGroupPlayerByPlayer(player):getGroup():getTag().."'.", "success")
+end
+addEvent("MST:invitePlayer", true)
+addEventHandler("MST:invitePlayer", getRootElement(), invitePlayer)
+
+function joinGroup(player, groupTag)
+    if not (isHaveProtection()) then return end
+    if not (player) then return end
+
+    if not (getGroupManager():isGroup(groupTag)) then
+        config.notifyS(player, "Grupo invalido ou inexistente.", "error")
+        return
+    end
+    
+    local findInvite = false
+    for _, value in pairs(getGroupManager():getGroupPlayerByPlayer(player):getInvitations()) do
+        if (value:getGroupTagInvite() == groupTag) then
+            findInvite = true
+            break
+        end
+    end
+
+    if not (findInvite) then
+        config.notifyS(player, "Seu convite expirou.", "error")
+        return
+    end
+
+    local joinedPlayer = getGroupAPI():joinGroup(player:getAccount():getName(), groupTag)
+    config.notifyS(player, joinedPlayer[1], joinedPlayer[2])
+end
+addEvent("MST:joinGroup", true)
+addEventHandler("MST:joinGroup", getRootElement(), joinGroup)
+
+function kickPlayerGroup(player, targetAccountName)
+    if not (isHaveProtection()) then return end
+    if not (player) then return end
+    if not (targetAccountName) then return end
+
+    local groupPlayer = getGroupManager():getGroupPlayer(player:getAccount():getName())
+    if not (groupPlayer) then 
+        config.notifyS(player, "Algum problema aconteceu com você. Relogue.", "error")
+        return
+    end
+
+    local accountName = player:getAccount():getName()
+    if (accountName == targetAccountName) then
+        config.notifyS(player, "Você não pode se expulsar.", "error")
+        return
+    end
+
+    local target = getGroupManager():getGroupPlayer(targetAccountName)
+    if not (target) then
+        config.notifyS(player, "Falha ao encontrar o jogador.", "error")
+        return
+    end
+
+    local kickedPlayer = getGroupAPI():kickPlayerGroup(accountName, targetAccountName)
+    local searchPlayerTarget = getGroupManager():getPlayerByGroupPlayer(target)
+    player:triggerEvent("MST:updateValues", player, groupPlayer)
+    if (searchPlayerTarget) then
+        searchPlayerTarget:triggerEvent("MST:updateValues", searchPlayerTarget, target)
+    end
+    config.notifyS(player, kickedPlayer[1], kickedPlayer[2])
+end
+addEvent("MST:kickPlayerGroup", true)
+addEventHandler("MST:kickPlayerGroup", getRootElement(), kickPlayerGroup)
+
+function promotePlayer(player, targetAccountName)
+    if not (isHaveProtection()) then return end
+    if not (player) then return end
+    if not (targetAccountName) then return end
+
+    local groupPlayer = getGroupManager():getGroupPlayer(player:getAccount():getName())
+    if not (groupPlayer) then 
+        config.notifyS(player, "Algum problema aconteceu com você. Relogue.", "error")
+        return
+    end
+    
+    local promoteGp = getGroupManager():getGroupPlayer(targetAccountName)
+    if not (promoteGp) then
+        config.notifyS(player, "Falha ao encontrar o jogador.", "info")
+        return
+    end
+
+    local group = groupPlayer:getGroup()
+    if not (group) then
+        config.notifyS(player, "Você não está em um grupo.", "error")
+        return
+    end
+
+    if not (groupPlayer:isSuperior()) then
+        config.notifyS(player, "Você precisar ser capitão ou superior para poder administrar os cargos do grupo.", "info")
+        return
+    end
+
+    local promotedPlayer = getGroupAPI():promotePlayer(player:getAccount():getName(), targetAccountName)
+    local searchPlayerTarget = getGroupManager():getPlayerByGroupPlayer(promoteGp)
+    player:triggerEvent("MST:updateValues", player, groupPlayer)
+    if (searchPlayerTarget) then
+        searchPlayerTarget:triggerEvent("MST:updateValues", searchPlayerTarget, promoteGp)
+    end
+    config.notifyS(player, promotedPlayer[1], promotedPlayer[2])
+end
+addEvent("MST:promotePlayer", true)
+addEventHandler("MST:promotePlayer", getRootElement(), promotePlayer)
+
+function demotePlayer(player, targetAccountName)
+    if not (isHaveProtection()) then return end
+    if not (player) then return end
+    if not (targetAccountName) then return end
+
+    local groupPlayer = getGroupManager():getGroupPlayer(player:getAccount():getName())
+    if not (groupPlayer) then 
+        config.notifyS(player, "Algum problema aconteceu com você. Relogue.", "error")
+        return
+    end
+    
+    local demoteGp = getGroupManager():getGroupPlayer(targetAccountName)
+    if not (demoteGp) then
+        config.notifyS(player, "Falha ao encontrar o jogador.", "info")
+        return
+    end
+
+    local group = groupPlayer:getGroup()
+    if not (group) then
+        config.notifyS(player, "Você não está em um grupo.", "error")
+        return
+    end
+
+    local targetGroup = demoteGp:getGroup()
+    if not (group) then
+        config.notifyS(player, "O jogador não está em um grupo.", "error")
+        return
+    end
+
+    if not (groupPlayer:isSuperior()) then
+        config.notifyS(player, "Você precisar ser capitão ou superior para poder administrar os cargos do grupo.", "info")
+        return
+    end
+
+    if (group:getTag() ~= targetGroup:getTag()) then
+        config.notifyS(player, "Este jogador não esta no seu grupo.")
+        return
+    end
+
+    local demotedPlayer = getGroupAPI():demotePlayer(player:getAccount():getName(), targetAccountName)
+    local searchPlayerTarget = getGroupManager():getPlayerByGroupPlayer(demoteGp)
+    player:triggerEvent("MST:updateValues", player, groupPlayer)
+    if (searchPlayerTarget) then
+        searchPlayerTarget:triggerEvent("MST:updateValues", searchPlayerTarget, demoteGp)
+    end
+    config.notifyS(player, demotedPlayer[1], demotedPlayer[2])
+end
+addEvent("MST:demotePlayer", true)
+addEventHandler("MST:demotePlayer", getRootElement(), demotePlayer)
+
+function leaveGroup(player)
+    if not (isHaveProtection()) then return end
+    if not (player) then return end
+
+    local leavedPlayer = getGroupAPI():leavePlayer(player:getAccount():getName())
+    if (leavedPlayer ~= true) then
+        config.notifyS(player, leavedPlayer, "error")
+        return
+    end
+
+    config.notifyS(player, "Você saiu do grupo.", "success")
+end
+addEvent("MST:leaveGroup", true)
+addEventHandler("MST:leaveGroup", getRootElement(), leaveGroup)

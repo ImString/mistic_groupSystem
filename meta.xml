@@ -1,0 +1,166 @@
+<meta>
+	<!-- POO Functions -->
+	<oop>true</oop>
+	
+	<!-- Config -->
+	<script src="resources/config.lua" type="shared" cache="false" />
+
+	<!-- API -->
+    <script src="me/stringdev/mstgroupsystem/api/Async.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/api/OopUtil.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/api/JavaUtil.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/api/MTAUtil.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/api/ClientUtil.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/api/EditBox.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/api/CommandHandler.mst" type="shared" cache="false" />
+
+    <!-- Assets - Fonts -->
+    <file src="me/stringdev/mstgroupsystem/assets/fonts/black.ttf" />
+    <file src="me/stringdev/mstgroupsystem/assets/fonts/bold.ttf" />
+    <file src="me/stringdev/mstgroupsystem/assets/fonts/extrabold.ttf" />
+    <file src="me/stringdev/mstgroupsystem/assets/fonts/light.ttf" />
+    <file src="me/stringdev/mstgroupsystem/assets/fonts/medium.ttf" />
+    <file src="me/stringdev/mstgroupsystem/assets/fonts/regular.ttf" />
+    <file src="me/stringdev/mstgroupsystem/assets/fonts/semibold.ttf" />
+
+    <!-- Assets - Images -->
+    <file src="me/stringdev/mstgroupsystem/assets/images/logo.png" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/scroll.png" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/background.png_encrypt" download="false" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/card.png_encrypt" download="false" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/card2.png_encrypt" download="false" />
+
+    <!-- Assets - Images - Avatar -->
+    <file src="me/stringdev/mstgroupsystem/assets/images/avatar/captain.png" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/avatar/leader.png" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/avatar/none.png" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/avatar/member.png" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/avatar/recruit.png" />
+
+    <!-- Assets - Images - Icons -->
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/econ.png_encrypt" download="false" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/home.png_encrypt" download="false" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/logs.png_encrypt" download="false" />
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/members.png_encrypt" download="false"/>
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/money.png_encrypt" download="false"/>
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/visible.png_encrypt" download="false"/>
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/user.png_encrypt" download="false"/>
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/usericon.png_encrypt" download="false"/>
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/novisible.png_encrypt" download="false"/>
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/leave.png_encrypt" download="false"/>
+    <file src="me/stringdev/mstgroupsystem/assets/images/icons/trash.png_encrypt" download="false"/>
+
+    <!-- Commands -->
+    <script src="me/stringdev/mstgroupsystem/commands/CreateGroupCommand.mst" type="server" />
+    
+    <!-- DataBase -->
+    <script src="me/stringdev/mstgroupsystem/database/SQL.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/database/SQLiteCore.mst" type="server" />
+
+    <!-- Listeners -->
+    <script src="me/stringdev/mstgroupsystem/listeners/OnBindListener.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/listeners/OnJoinListener.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/listeners/OnLeaveListener.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/listeners/OnUpdateNick.mst" type="server" />
+
+    <!-- Manager -->
+    <script src="me/stringdev/mstgroupsystem/manager/ClientManager.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/manager/CommandManager.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/manager/GroupManager.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/manager/TabsManager.mst" type="client" cache="false" />
+    
+    <!-- Enums -->
+    <script src="me/stringdev/mstgroupsystem/enums/Tabs.mst" type="shared" cache="false" />
+
+    <!-- Exports -->
+    <script src="me/stringdev/mstgroupsystem/exports/Server.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/exports/Client.mst" type="client" cache="false" />
+
+    <!-- Object -->
+    <script src="me/stringdev/mstgroupsystem/object/PlayerAPI.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/object/GroupAPI.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/object/LogsAPI.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/object/TransferAPI.mst" type="server" />
+
+    <!-- Object - Group -->
+    <script src="me/stringdev/mstgroupsystem/object/group/Group.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/group/GroupRole.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/group/GroupType.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/group/GroupPlayer.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/group/Transfer.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/group/Invites.mst" type="shared" cache="false" />
+
+    <!-- Object - Logs -->
+    <script src="me/stringdev/mstgroupsystem/object/logs/Logs.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/logs/LogsType.mst" type="shared" cache="false" />
+
+    <!-- Object - Client -->
+    <script src="me/stringdev/mstgroupsystem/object/client/LogsFormmater.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/client/PlayerFormmater.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/client/GroupFormmater.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/object/client/TransferFormmater.mst" type="client" cache="false" />
+    
+    <!-- Server -->
+    <script src="me/stringdev/mstgroupsystem/server/GroupServerManage.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/server/MemberServerManage.mst" type="server" />
+    <script src="me/stringdev/mstgroupsystem/server/TransferServerManage.mst" type="server" />
+
+    <!-- Tabs -->
+    <script src="me/stringdev/mstgroupsystem/tabs/CreateGroupTab.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/tabs/NoHaveTab.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/tabs/HomeCTab.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/tabs/HomeFTab.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/tabs/MembersTab.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/tabs/EconomyTab.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/tabs/LogsTab.mst" type="client" cache="false" />
+
+    <!-- Utils -->
+    <script src="me/stringdev/mstgroupsystem/utils/IDSystem.mst" type="shared" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/utils/LoaderPNG.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/utils/LoaderSvg.mst" type="client" cache="false" />
+    <script src="me/stringdev/mstgroupsystem/utils/Utilitys.mst" type="server" />
+
+	<!-- Main -->
+    <script src="me/stringdev/mstgroupsystem/Main.mst" type="server" />
+
+    <!-- Exports - Shared -->
+    <export function="getGroupManager" type="shared" />
+
+    <!-- Exports - Server -->
+    <export function="getGroupFromPlayer" type="server" />
+    <export function="isPlayerInGroup" type="server" />
+    <export function="createLog" type="server" />
+
+    <export function="getPlayerBalance" type="server" />
+    <export function="setPlayerBalance" type="server" />
+    <export function="addPlayerBalance" type="server" />
+    <export function="takePlayerBalance" type="server" />
+
+    <export function="getGroupBalance" type="server" />
+    <export function="setGroupBalance" type="server" />
+    <export function="addGroupBalance" type="server" />
+    <export function="takeGroupBalance" type="server" />
+
+    <export function="getWeaponsFabricate" type="server" />
+    <export function="setWeaponsFabricate" type="server" />
+    <export function="addWeaponsFabricate" type="server" />
+    <export function="removeWeaponsFabricate" type="server" />
+
+    <export function="getWeaponsSell" type="server" />
+    <export function="setWeaponsSell" type="server" />
+    <export function="addWeaponsSell" type="server" />
+    <export function="removeWeaponsSell" type="server" />
+    
+    <export function="getDrugsFabricate" type="server" />
+    <export function="setDrugsFabricate" type="server" />
+    <export function="addDrugsFabricate" type="server" />
+    <export function="removeDrugsFabricate" type="server" />
+    
+    <export function="getDrugsSell" type="server" />
+    <export function="setDrugsSell" type="server" />
+    <export function="addDrugsSell" type="server" />
+    <export function="removeDrugsSell" type="server" />
+
+    <!-- Ant Warning -->
+    <min_mta_version client="1.5.6" server="1.5.6"/>
+</meta>

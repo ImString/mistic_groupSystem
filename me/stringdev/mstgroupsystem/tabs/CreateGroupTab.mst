@@ -1,0 +1,142 @@
+local screenW, screenH = guiGetScreenSize()
+
+local tagEditBox = createElement("groupScriptBox")
+local nameEditBox = createElement("groupScriptBox")
+local ownerEditBox = createElement("groupScriptBox")
+
+tagEditBox:setData("forceUpper", true)
+ownerEditBox:setData("number", true)
+
+local memberLimit = config["MaxMember"]
+local groupType = 1
+local groupsType = {
+    [1] = "Facção",
+    [2] = "Corporação",
+}
+
+function onRenderCreateGroup()
+    local bCAlpha = interpolateBetween(bCAlphaStart, 255, 255, bCAlphaFinal, 0, 0, (getTickCount () - tickBC) / 600, "Linear")
+    local i = config["Interface"]
+
+    dxDrawImage(620, 294, 680, 493, "me/stringdev/mstgroupsystem/assets/images/background.png_encrypt", 0, 0, 0, tocolor(i["Background"][1], i["Background"][2], i["Background"][3], bCAlpha), false)
+    dxDrawText("Coloque as seguintes informações para criar \nseu", 649, 317, 423, 39, tocolor(57, 57, 57, contentAlpha), 1.0, font4, "left", "top", false, false, false, false, false)
+    dxDrawText("\ngrupo.", 696, 317, 62, 22, tocolor(57, 57, 57, contentAlpha), 1.0, font2, "left", "top", false, false, false, false, false)
+    
+    dxDrawRectangle(649, 380, 46, 1, tocolor(129, 129, 129, bCAlpha), false)
+    
+    dxDrawText("Tag do Grupo", 649, 404, 106, 18, tocolor(57, 57, 57, bCAlpha), 0.7, font2, "left", "top", false, false, false, false, false)
+    dxDrawEditBox("Tag", 649, 428, 114, 13, false, 3, tocolor(57, 57, 57, bCAlpha), "left", tagEditBox)
+    
+    dxDrawText("Nome do Grupo", 649, 458, 125, 18, tocolor(57, 57, 57, bCAlpha), 0.7, font2, "left", "top", false, false, false, false, false)
+    dxDrawEditBox("Nome", 649, 482, 634, 16, false, 60, tocolor(57, 57, 57, bCAlpha), "left", nameEditBox)
+        
+    dxDrawText("Limite de Membros", 649, 510, 152, 18, tocolor(57, 57, 57, bCAlpha), 0.7, font2, "left", "top", false, false, false, false, false)
+    dxDrawText(""..memberLimit, 649, 530, 634, 16, tocolor(57, 57, 57, bCAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
+    if (isCursorShowing()) then
+        if (isCursorOnElement(649, 530, 21, 16)) then
+            cursorX, cursorY = getHudCursorPos()
+            if (cursorX and cursorY) then
+                local text = "B. Esquerdo = +\nB. Direito = -"
+                cursorX, cursorY = cursorX * screenW, cursorY * screenH
+                _dxDrawRectangle(cursorX + 12.5, cursorY, dxGetTextWidth(text, 0.4, font4) + 10, 25, tocolor(0, 0, 0, 150))
+                _dxDrawText(text, cursorX + 12.5, cursorY + 7, cursorX + (dxGetTextWidth(text, 0.4, font4) + 10) + 12.5, cursorY + 15, tocolor(255, 255, 255), 0.4, font4, "center", "center")
+            end
+        end
+    end
+
+    dxDrawText("Líder do Grupo", 649, 562, 118, 18, tocolor(57, 57, 57, bCAlpha), 0.7, font2, "left", "top", false, false, false, false, false)
+    dxDrawEditBox("ID do líder", 649, 586, 634, 16, false, 6, tocolor(57, 57, 57, bCAlpha), "left", ownerEditBox)
+
+    dxDrawText("Tipo de Grupo", 649, 614, 111, 18, tocolor(57, 57, 57, bCAlpha), 0.7, font2, "left", "top", false, false, false, false, false)
+    dxDrawText(groupsType[groupType], 649, 638, 634, 16, tocolor(57, 57, 57, bCAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
+    if (isCursorShowing()) then
+        if (isCursorOnElement(649, 638, 47, 16)) then
+            cursorX, cursorY = getHudCursorPos()
+            if (cursorX and cursorY) then
+                local text = "Clique para alterar."
+                cursorX, cursorY = cursorX * screenW, cursorY * screenH
+                _dxDrawRectangle(cursorX + 12.5, cursorY, dxGetTextWidth(text, 0.4, font4) + 10, 15, tocolor(0, 0, 0, 150))
+				_dxDrawText(text, cursorX + 12.5, cursorY, cursorX + (dxGetTextWidth(text, 0.4, font4) + 10) + 12.5, cursorY + 15, tocolor(255, 255, 255), 0.4, font4, "center", "center")
+            end
+        end
+    end
+
+    drawButton(1108, 721, 161, 40, "Criar Grupo", { 41, 44, 50, bCAlpha }, { 58, 64, 77, bCAlpha }, { 0.6, font9, "center", "center" } )
+end
+
+function createGroupPanel()
+    if (isEventHandlerAdded("onClientRender", getRootElement(), onRenderCreateGroup)) then closeCreateGroupPanel() return end
+	
+	openCreateGroupPanel()
+end
+addEvent("MST:createGroupPanel", true)
+addEventHandler("MST:createGroupPanel", getRootElement(), createGroupPanel)
+
+function openCreateGroupPanel()
+    showCursor(true)
+	bCAlphaStart = 0
+	bCAlphaFinal = 255
+    tickBC = getTickCount()
+    addEventHandler("onClientRender", getRootElement(), onRenderCreateGroup)
+end
+
+function closeCreateGroupPanel()
+    bCAlphaStart = 255
+	bCAlphaFinal = 0
+    tickBC = getTickCount()
+    setTimer(function()
+		if (isEventHandlerAdded("onClientRender", getRootElement(), onRenderCreateGroup)) then
+			showCursor(false)
+			removeEventHandler("onClientRender", getRootElement(), onRenderCreateGroup)
+		end
+	end, 600, 1)
+end
+
+function onClientClickCreateGroup(button, state)
+    if (isEventHandlerAdded("onClientRender", getRootElement(), onRenderCreateGroup)) then
+        if (state == "down") then
+            if (isCursorOnElement(1108, 721, 161, 40)) then
+                local groupTag = dxGetEditBoxText(tagEditBox)
+                if (groupTag == "" or #groupTag <= 0) then
+                    config.notifyC("Informe uma tag valida.", "info")
+                    return
+                end
+
+                local groupName = dxGetEditBoxText(nameEditBox)
+                if (groupName == "" or #groupName <= 0) then
+                    config.notifyC("Informe um nome valido.", "info")
+                    return
+                end
+
+                local groupOwner = dxGetEditBoxText(ownerEditBox)
+                if (groupOwner == "" or #groupOwner <= 0) then
+                    config.notifyS("Informe um ID de dono valido.", "info")
+                    return
+                end
+
+                triggerServerEvent("MST:createGroup", localPlayer, localPlayer, groupTag, groupName, memberLimit, groupOwner, groupType)
+                closeCreateGroupPanel()
+            end
+
+            if (isCursorOnElement(649, 638, 47, 16)) then
+                if (button ~= "left") then return end
+                groupType = (groupType == 1 and 2 or 1)
+            end
+
+            if (isCursorOnElement(649, 530, 21, 16)) then
+                if (button == "left") then
+                    if (memberLimit >= 999) then return end
+                    memberLimit = memberLimit + 1
+                    return
+                end
+
+                if (button == "right") then
+                    if (memberLimit <= 1) then return end
+                    memberLimit = memberLimit - 1
+                    return
+                end    
+            end
+        end
+    end
+end
+addEventHandler("onClientClick", getRootElement(), onClientClickCreateGroup)
