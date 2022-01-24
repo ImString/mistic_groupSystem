@@ -270,8 +270,9 @@ class 'GroupAPI' {
         local target = getGroupManager():getGroupPlayer(targetAccountName)
         local cargoms = msender:getGroupRole():toString()
 		local cargomp = target:getGroupRole():toString()
+        local group = msender:getGroup()
 
-        if (msender:getGroup():getTag() ~= target:getGroup():getTag()) then
+        if (group:getTag() ~= target:getGroup():getTag()) then
             return {"Este jogador não esta no seu grupo.", "error"}
         end
 
@@ -283,8 +284,8 @@ class 'GroupAPI' {
 			target:setGroupRole(GroupRole():select("MEMBER"))
             getGroupManager():importGroupPlayer(target)
             SQL():updateGroupPlayer(target)
-            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." promoveu o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
-			return {"Player promovido com sucesso para o cargo de Membro", "success"}
+            getLogsAPI():createLogs(group, "O "..msender:getGroupRole():getName(group:getGroupType()):lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." promoveu o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Jogador promovido com sucesso para o cargo de "..target:getGroupRole():getName(group:getGroupType())..".", "success"}
         end
 
 		if (cargomp == "MEMBER") then
@@ -295,8 +296,8 @@ class 'GroupAPI' {
             target:setGroupRole(GroupRole():select("CAPTAIN"))
             getGroupManager():importGroupPlayer(target)
             SQL():updateGroupPlayer(target)
-            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." promoveu o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
-			return {"Player promovido com sucesso para o cargo de Capitão.", "success"}
+            getLogsAPI():createLogs(group, "O "..msender:getGroupRole():getName(group:getGroupType()):lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." promoveu o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Jogador promovido com sucesso para o cargo de "..target:getGroupRole():getName(group:getGroupType())..".", "success"}
 		end
 
 		if (cargomp == "CAPTAIN") then
@@ -316,8 +317,9 @@ class 'GroupAPI' {
         local target = getGroupManager():getGroupPlayer(targetAccountName)
         local cargoms = msender:getGroupRole():toString()
 		local cargomp = target:getGroupRole():toString()
+        local group = msender:getGroup()
 
-        if (msender:getGroup():getTag() ~= target:getGroup():getTag()) then
+        if (group:getTag() ~= target:getGroup():getTag()) then
             return {"Este jogador não esta no seu grupo.", "error"}
         end
 
@@ -333,8 +335,8 @@ class 'GroupAPI' {
             target:setGroupRole(GroupRole():select("RECRUIT"))
             getGroupManager():importGroupPlayer(target)
             SQL():updateGroupPlayer(target)
-            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." rebaixou o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
-			return {"Player rebaixado com sucesso para o cargo de Recruta.", "success"}
+            getLogsAPI():createLogs(group, "O "..msender:getGroupRole():getName(group:getGroupType()):lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." rebaixou o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Jogador rebaixado com sucesso para o cargo de "..target:getGroupRole():getName(group:getGroupType())..".", "success"}
 		end
 
         if (cargomp == "CAPTAIN") then
@@ -345,8 +347,8 @@ class 'GroupAPI' {
             target:setGroupRole(GroupRole():select("MEMBER"))
             getGroupManager():importGroupPlayer(target)
             SQL():updateGroupPlayer(target)
-            getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName():lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." rebaixou o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
-			return {"Player rebaixado com sucesso para o cargo de Membro.", "success"}
+            getLogsAPI():createLogs(group, "O "..msender:getGroupRole():getName(group:getGroupType()):lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." rebaixou o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
+			return {"Jogador rebaixado com sucesso para o cargo de "..target:getGroupRole():getName(group:getGroupType())..".", "success"}
 		end
     end,
 }

@@ -6,7 +6,7 @@ class 'CommandManager' {
             local srcAttribute = nod:getAttribute("src")
 
             if (srcAttribute and srcAttribute:find("me/stringdev/mstgroupsystem/commands")) then
-                local commandObject = srcAttribute:gsub("me/stringdev/mstgroupsystem/commands/", ""):gsub(".mst", "")
+                local commandObject = srcAttribute:gsub("me/stringdev/mstgroupsystem/commands/", ""):gsub(".mstc", ""):gsub(".mst", "")
                 if (_G[commandObject] == nil or _G[commandObject] == false) then return end
 
                 CommandHandler():addCommand(_G[commandObject]:getName(), _G[commandObject]:getFunction())

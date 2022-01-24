@@ -3,10 +3,10 @@ function onPlayerJoin(_, account)
     
     local player = source
     local accountName = getAccountName(account)
-    local gp = GroupManager():getGroupPlayer(accountName)
+    local gp = getGroupManager():getGroupPlayer(accountName)
 
-    if (gp == nil) then
-        local id = player:getData(config["ElementData"]["ID"]) or accout:getID()
+    if not (gp) then
+        local id = player:getData(config["ElementData"]["ID"]) or account:getID()
         local playerId = tonumber(id)
         local newGp = GroupPlayer()
         local objectClear = {}
@@ -29,9 +29,7 @@ function onPlayerJoin(_, account)
 
         GroupManager():importGroupPlayer(newGp)
         SQL():insertGroupPlayer(newGp)
-    else
-        local gp = GroupManager():getGroupPlayer(accountName)
-                
+    else          
         gp:setNickName(player:getName())
         gp:setOnline(true)
         

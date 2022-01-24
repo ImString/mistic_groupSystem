@@ -18,7 +18,7 @@ function bindOpenInitial(player)
     if not (isHaveProtection()) then return end
 
     if (delayTimer[player]) then
-        config.notifyS(player, "Aguarde '"..config["DelayOpen"].."' segundos para abrir novamente.", "error") 
+        config.notifyS(player, "Aguarde '"..config["DelayOpen"].."' segundos para abrir novamente.", "error", 3) 
         return
     end
 

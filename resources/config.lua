@@ -58,11 +58,11 @@ config = {
     },
     
     -- Infobox
-    notifyS = function (player, text, type)
-        player:triggerEvent("V2.showInfobox", player, text, type)
+    notifyS = function (player, text, type, seconds)
+        player:triggerEvent("MST.sendPlayerNotification", player, text, type, (seconds or 5))
     end,
     
-    notifyC = function (text, type)
-        triggerEvent("V2.showInfobox", localPlayer, text, type)
+    notifyC = function (text, type, seconds)
+        triggerEvent("MST.sendPlayerNotification", localPlayer, text, type, (seconds or 5))
     end
 }
