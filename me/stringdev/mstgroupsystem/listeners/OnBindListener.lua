@@ -4,19 +4,14 @@ function onStartBindAll()
         bindKey(player, config["BindOpen"], "down", bindOpenInitial)
     end
 end
--- addEventHandler("onResourceStart", getRootElement(), onStartBindAll)
+addEventHandler("onResourceStart", resourceRoot, onStartBindAll)
 
 function loginPlayerAddBind()
-    if not (isHaveProtection()) then return end
-
-    local player = source
-    bindKey(player, config["BindOpen"], "down", bindOpenInitial)
+    bindKey(source, config["BindOpen"], "down", bindOpenInitial)
 end
 addEventHandler("onPlayerLogin", getRootElement(), loginPlayerAddBind)
 
 function bindOpenInitial(player)
-    if not (isHaveProtection()) then return end
-
     if (delayTimer[player]) then
         config.notifyS(player, "Aguarde '"..config["DelayOpen"].."' segundos para abrir novamente.", "error", 3) 
         return

@@ -1,5 +1,4 @@
 function createGroup(player, tag, name, maxMember, ownerID, groupType)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
     if not (tag) then return end
     if not (name) then return end
@@ -35,7 +34,6 @@ addEvent("MST:createGroup", true)
 addEventHandler("MST:createGroup", getRootElement(), createGroup)
 
 function destroyGroup(player)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
 
     local groupPlayer = getGroupManager():getGroupPlayer(player:getAccount():getName())
@@ -71,7 +69,6 @@ addEvent("MST:destroyGroup", true)
 addEventHandler("MST:destroyGroup", getRootElement(), destroyGroup)
 
 function clearLog(player)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
 
     local groupPlayer = getGroupManager():getGroupPlayer(player:getAccount():getName())

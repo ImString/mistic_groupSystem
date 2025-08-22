@@ -1,6 +1,4 @@
 function onPlayerJoin(_, account)
-    if not (isHaveProtection()) then return end
-    
     local player = source
     local accountName = getAccountName(account)
     local gp = getGroupManager():getGroupPlayer(accountName)

@@ -3,8 +3,6 @@ local groupPlayer = { }
 
 class 'GroupManager' {
     loadGroups = function (self)
-        if not (isHaveProtection()) then return end
-
         local groups = getSql():retrieveGroups()
 
         for _, group in ipairs(groups) do
@@ -13,8 +11,6 @@ class 'GroupManager' {
     end,
     
     loadPlayers = function (self)
-        if not (isHaveProtection()) then return end
-
         local players = getSql():retrievePlayers()
         local groups = getSql():retrieveGroups()
 
@@ -28,38 +24,26 @@ class 'GroupManager' {
     end,
 
     importGroup = function (self, group)
-        if not (isHaveProtection()) then return end
-
         groups[group:getTag()] = group
     end,
     
     destroyGroup = function (self, group)
-        if not (isHaveProtection()) then return end
-
         groups[group:getTag()] = nil
     end,
 
     importGroupPlayer = function (self, gp)
-        if not (isHaveProtection()) then return end
-
         groupPlayer[gp:getName()] = gp
     end,
 
     isGroup = function (self, tag)
-        if not (isHaveProtection()) then return end
-
         return groups[tag] ~= nil
     end,
 
     getGroup = function (self, tag)
-        if not (isHaveProtection()) then return end
-
         return groups[tag]
     end,
 
     getGroupByName = function (self, name)
-        if not (isHaveProtection()) then return end
-
         local groupSearch = false
         for _, group in ipairs(groups) do
             if (group:getName() == name) then
@@ -72,8 +56,6 @@ class 'GroupManager' {
     end,
 
     getGroupByPlayerName = function (self, accountName)
-        if not (isHaveProtection()) then return end
-    
         local gp = self:getGroupPlayer(accountName)
 
         if (gp ~= null) then
@@ -84,20 +66,14 @@ class 'GroupManager' {
     end,
 
     getGroups = function (self)
-        if not (isHaveProtection()) then return end
-
         return getAllValues(groups)
     end,
 
     getAllGroupsPlayers = function (self)
-        if not (isHaveProtection()) then return end
-
         return getAllValues(groupPlayer)
     end,
 
     getGroupPlayerByPlayer = function (self, player)
-        if not (isHaveProtection()) then return end
-
         local account = player:getAccount()
         if not (account) then
             return false
@@ -108,8 +84,6 @@ class 'GroupManager' {
     end,
 
     getPlayerByGroupPlayer = function (self, gp)
-        if not (isHaveProtection()) then return end
-
         local playerSearch = false
         for _, player in ipairs(getElementsByType("player")) do
             if (self:getGroupPlayerByPlayer(player):getName() == gp:getName()) then
@@ -122,8 +96,6 @@ class 'GroupManager' {
     end,
 
     getGroupPlayerByID = function (self, id)
-        if not (isHaveProtection()) then return end
-
         local groupPlayerSearch = false
         for _, groupPlayer in ipairs(self:getAllGroupsPlayers()) do
             if (groupPlayer:getId() == id) then
@@ -136,8 +108,6 @@ class 'GroupManager' {
     end,
 
     getGroupPlayer = function (self, accountName)
-        if not (isHaveProtection()) then return end
-
         local gp = groupPlayer[accountName]
         if (gp == nil) then
             return false
@@ -147,8 +117,6 @@ class 'GroupManager' {
     end,
 
     getNewIdGroup = function (self)
-        if not (isHaveProtection()) then return end
-        
         local result = getSql().core:select("SELECT `id` FROM `mstgroups_groups` ORDER BY `id` ASC")
         local newID = false
         for i, id in pairs(result) do

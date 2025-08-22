@@ -426,3 +426,205 @@ function removeDrugsSell(player, drugsSell)
     getSql():updateGroupPlayer(groupPlayer)
     return groupPlayer
 end
+
+----------------------------------------------------/ PLAYERS REMAND \----------------------------------------------------
+function getPlayersRemand(player)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    return groupPlayer:getPlayersRemand()
+end
+
+function setPlayersRemand(player, playersRemand)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (playersRemand) then return false end
+    if not (tonumber(playersRemand)) then return false end
+
+    local playersRemand = tonumber(playersRemand)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(playersRemand)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+function addPlayersRemand(player, playersRemand)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (playersRemand) then return false end
+    if not (tonumber(playersRemand)) then return false end
+
+    local playersRemand = tonumber(playersRemand)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(groupPlayer:getPlayersRemand() + playersRemand)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+function removePlayersRemand(player, playersRemand)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (playersRemand) then return false end
+    if not (tonumber(playersRemand)) then return false end
+
+    local playersRemand = tonumber(playersRemand)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(groupPlayer:getPlayersRemand() - playersRemand)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+----------------------------------------------------/ LEARNED GUNS \----------------------------------------------------
+function getLearnedGuns(player)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    return groupPlayer:getLearnedGuns()
+end
+
+function setLearnedGuns(player, learnedGuns)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (learnedGuns) then return false end
+    if not (tonumber(learnedGuns)) then return false end
+
+    local learnedGuns = tonumber(learnedGuns)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(playersRemand)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+function addLearnedGuns(player, learnedGuns)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (learnedGuns) then return false end
+    if not (tonumber(learnedGuns)) then return false end
+
+    local learnedGuns = tonumber(learnedGuns)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(groupPlayer:getLearnedGuns() + learnedGuns)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+function removeLearnedGuns(player, learnedGuns)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (learnedGuns) then return false end
+    if not (tonumber(learnedGuns)) then return false end
+
+    local learnedGuns = tonumber(learnedGuns)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(groupPlayer:getLearnedGuns() - learnedGuns)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+----------------------------------------------------/ SEIZED DRUGS \----------------------------------------------------
+
+function getSeizedDrugs(player)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    return groupPlayer:getSeizedDrugs()
+end
+
+function setSeizedDrugs(player, seizedDrugs)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (seizedDrugs) then return false end
+    if not (tonumber(seizedDrugs)) then return false end
+
+    local seizedDrugs = tonumber(seizedDrugs)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(playersRemand)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+function addSeizedDrugs(player, seizedDrugs)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (seizedDrugs) then return false end
+    if not (tonumber(seizedDrugs)) then return false end
+
+    local seizedDrugs = tonumber(seizedDrugs)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(groupPlayer:getSeizedDrugs() + seizedDrugs)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end
+
+function removeSeizedDrugs(player, seizedDrugs)
+    if not (isHaveProtection()) then return false end
+    if not (player) then return false end
+    if not (seizedDrugs) then return false end
+    if not (tonumber(seizedDrugs)) then return false end
+
+    local seizedDrugs = tonumber(seizedDrugs)
+    local groupPlayer = getGroupManager():getGroupPlayerByPlayer(player)
+    if not (groupPlayer) then 
+        return false 
+    end
+
+    groupPlayer:setPlayerRemand(groupPlayer:getSeizedDrugs() - seizedDrugs)
+    getGroupManager():importGroupPlayer(groupPlayer)
+    getSql():updateGroupPlayer(groupPlayer)
+    return groupPlayer
+end

@@ -1,9 +1,4 @@
 config = {
-    License = { -- Proteção de Resource
-        ["User"] = "String",
-        ["Key"] = "string-Black"
-    },
-    
     BindOpen = "F4", -- Botao para abrir o painel
     MaxMember = 30, -- Maximo de membros por padrão
     DelayOpen = 3, -- Tempo para abrir o menu (em segundos). Recomendado deixar pelo menos 1.

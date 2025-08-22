@@ -1,6 +1,4 @@
 function onQuitServer()
-    if not (isHaveProtection()) then return end
-    
     local player = source
     if (isGuestAccount(player:getAccount())) then return end
     

@@ -91,7 +91,7 @@ class 'GroupPlayer' {
     end,
 
     getBalance = function (self)
-        return self.balance
+        return self.balance or 0
     end,
 
     setBalance = function (self, balance)
@@ -119,7 +119,7 @@ class 'GroupPlayer' {
     end,
 
     getDrugsSell = function (self)
-        return self.drugsSell
+        return self.drugsSell or 0
     end,
 
     setDrugsSell = function (self, drugsSell)
@@ -129,7 +129,7 @@ class 'GroupPlayer' {
     end,
 
     getWeaponsSell = function (self)
-        return self.weaponsSell
+        return self.weaponsSell or 0
     end,
 
     setWeaponsSell = function (self, weaponsSell)
@@ -139,7 +139,7 @@ class 'GroupPlayer' {
     end,
 
     getDrugsFabricate = function (self)
-        return self.drugsFabricate
+        return self.drugsFabricate or 0
     end,
 
     setDrugsFabricate = function (self, drugsFabricate)
@@ -149,7 +149,7 @@ class 'GroupPlayer' {
     end,
 
     getWeaponsFabricate = function (self)
-        return self.weaponsFabricate
+        return self.weaponsFabricate or 0
     end,
 
     setWeaponsFabricate = function (self, weaponsFabricate)
@@ -159,7 +159,7 @@ class 'GroupPlayer' {
     end,
 
     getPlayersRemand = function (self)
-        return self.playersRemand
+        return self.playersRemand or 0
     end,
 
     setPlayerRemand = function (self, playersRemand)
@@ -169,7 +169,7 @@ class 'GroupPlayer' {
     end,
 
     getLearnedGuns = function (self)
-        return self.learnedGuns
+        return self.learnedGuns or 0
     end,
 
     setLearnedGuns = function (self, learnedGuns)
@@ -179,7 +179,7 @@ class 'GroupPlayer' {
     end,
 
     getSeizedDrugs = function (self)
-        return self.seizedDrugs
+        return self.seizedDrugs or 0
     end,
 
     setSeizedDrugs = function (self, seizedDrugs)

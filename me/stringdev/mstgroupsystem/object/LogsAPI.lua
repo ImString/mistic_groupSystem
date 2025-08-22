@@ -29,6 +29,7 @@ class 'LogsAPI' {
         group:setLogs(objectClear)
         getGroupManager():importGroup(group)
         getSql():deleteAllLogs(group)
+        
         return {"Logs limpadas com sucesso!", "success"}
     end,
 }

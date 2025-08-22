@@ -82,7 +82,7 @@ function onRenderEconomy()
 	            local playerSeizedD = groupPlayerList:getSeizedDrugs() or 0
 	            local playerLearnedG = groupPlayerList:getLearnedGuns() or 0
 
-                dxDrawText(playerListName.." # "..playerListID, 523, 534 + 33 * ammount - 25, 159, 10, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
+                dxDrawText(removeHex(playerListName).." # "..playerListID, 523, 534 + 33 * ammount - 25, 159, 10, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
                 dxDrawText(""..formatNumber(playerRemand, "."), 651, 534 + 33 * ammount - 25, 844, 552, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "center", "top", false, false, false, false, false)
                 dxDrawText(""..formatNumber(playerSeizedD, "."), 821, 534 + 33 * ammount - 25, 1014, 552, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "center", "top", false, false, false, false, false)
                 dxDrawText(""..formatNumber(playerLearnedG, "."), 981, 534 + 33 * ammount - 25, 1174, 552, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "center", "top", false, false, false, false, false)
@@ -115,7 +115,7 @@ function onRenderEconomy()
 	            local playerDrugsFabricate = groupPlayerList:getDrugsFabricate() or 0
 	            local playerWeaponsFabricate = groupPlayerList:getWeaponsFabricate() or 0
 
-                dxDrawText(playerListName.." # "..playerListID, 523, 534 + 33 * ammount - 25, 159, 10, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
+                dxDrawText(removeHex(playerListName).." # "..playerListID, 523, 534 + 33 * ammount - 25, 159, 10, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "left", "top", false, false, false, false, false)
                 dxDrawText(""..formatNumber(playerDrugsFabricate, "."), 667, 534 + 33 * ammount - 25, 732, 552, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "center", "top", false, false, false, false, false)
                 dxDrawText(""..formatNumber(playeDrugsSell, "."), 822, 534 + 33 * ammount - 25, 887, 552, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "center", "top", false, false, false, false, false)
                 dxDrawText(""..formatNumber(playerWeaponsFabricate, "."), 977, 534 + 33 * ammount - 25, 1037, 552, tocolor(255, 255, 255, contentAlpha), 0.6, font4, "center", "top", false, false, false, false, false)

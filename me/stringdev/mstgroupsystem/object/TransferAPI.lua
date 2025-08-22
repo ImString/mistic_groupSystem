@@ -20,7 +20,7 @@ class 'TransferAPI' {
             getSql():insertTransfer(transfer)
             getSql():updateGroup(groupObject)
             getSql():updateGroupPlayer(groupPlayer)
-            getLogsAPI():createLogs(groupObject, "O "..groupPlayer:getGroupRole():getName():lower().." "..removeHex(groupPlayer:getNickName():gsub("_", " ")).."#"..groupPlayer:getId().." depositou R$"..formatNumber(amount, "."), "success")
+            getLogsAPI():createLogs(groupObject, "O "..groupPlayer:getGroupRole():getName(groupObject:getGroupType()):lower().." "..removeHex(groupPlayer:getNickName():gsub("_", " ")).."#"..groupPlayer:getId().." depositou R$"..formatNumber(amount, "."), "success")
         end
     end,
     
@@ -31,7 +31,7 @@ class 'TransferAPI' {
             
             groupObject:removeBalance(amount)
             getSql():updateGroup(groupObject)
-            getLogsAPI():createLogs(groupObject, "O "..groupPlayer:getGroupRole():getName():lower().." "..removeHex(groupPlayer:getNickName():gsub("_", " ")).."#"..groupPlayer:getId().." removeu R$"..formatNumber(amount, "."), "error")
+            getLogsAPI():createLogs(groupObject, "O "..groupPlayer:getGroupRole():getName(groupObject:getGroupType()):lower().." "..removeHex(groupPlayer:getNickName():gsub("_", " ")).."#"..groupPlayer:getId().." removeu R$"..formatNumber(amount, "."), "error")
         end
     end,
 }

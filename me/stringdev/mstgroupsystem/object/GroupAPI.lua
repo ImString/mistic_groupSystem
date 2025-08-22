@@ -259,6 +259,7 @@ class 'GroupAPI' {
 
         getLogsAPI():createLogs(msender:getGroup(), "O "..msender:getGroupRole():getName(msender:getGroup():getGroupType()):lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." expulso o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
         self:leavePlayer(target:getName())
+
         return {"Jogador expulso com sucesso!", "success"}
     end,
 
@@ -297,7 +298,8 @@ class 'GroupAPI' {
             getGroupManager():importGroupPlayer(target)
             SQL():updateGroupPlayer(target)
             getLogsAPI():createLogs(group, "O "..msender:getGroupRole():getName(group:getGroupType()):lower().." "..removeHex(msender:getNickName():gsub("_", " ")).." promoveu o usuario "..removeHex(target:getNickName():gsub("_", " "))..".", "success")
-			return {"Jogador promovido com sucesso para o cargo de "..target:getGroupRole():getName(group:getGroupType())..".", "success"}
+			
+            return {"Jogador promovido com sucesso para o cargo de "..target:getGroupRole():getName(group:getGroupType())..".", "success"}
 		end
 
 		if (cargomp == "CAPTAIN") then

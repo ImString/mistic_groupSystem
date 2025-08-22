@@ -70,39 +70,39 @@ class 'PlayerFormmater' {
     end,
 
     getBalance = function (self)
-        return self.balance
+        return self.balance or 0
     end,
     
     getDrugsSell = function (self)
-        return self.drugsSell
+        return self.drugsSell or 0
     end,
 
     getWeaponsSell = function (self)
-        return self.weaponsSell
+        return self.weaponsSell or 0
     end,
 
     getDrugsFabricate = function (self)
-        return self.drugsFabricate
+        return self.drugsFabricate or 0
     end,
 
     getWeaponsFabricate = function (self)
-        return self.weaponsFabricate
+        return self.weaponsFabricate or 0
     end,
 
     getPlayersRemand = function (self)
-        return self.playersRemand
+        return self.playersRemand or 0
     end,
 
     getLearnedGuns = function (self)
-        return self.learnedGuns
+        return self.learnedGuns or 0
     end,
 
     getSeizedDrugs = function (self)
-        return self.seizedDrugs
+        return self.seizedDrugs or 0
     end,
 
     getInvitations = function (self)
-        return self.invitations
+        return self.invitations or {}
     end,
 
     getCreatedAt = function (self)

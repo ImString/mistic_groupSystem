@@ -75,34 +75,28 @@ function startScript()
         end
     end, 1000, 1)
 end
--- addEventHandler("onResourceStart", getRootElement(), startScript)
+addEventHandler("onResourceStart", resourceRoot, startScript)
 
 function getPlayerAPI()
-    if not (isHaveProtection()) then return end
     return PlayerAPI()
 end
 
 function getGroupAPI()
-    if not (isHaveProtection()) then return end
     return GroupAPI()
 end
 
 function getTransferAPI()
-    if not (isHaveProtection()) then return end
     return TransferAPI()
 end
 
 function getLogsAPI()
-    if not (isHaveProtection()) then return end
     return LogsAPI()
 end
 
 function getGroupManager()
-    if not (isHaveProtection()) then return end
     return groupManager
 end
 
 function getSql()
-    if not (isHaveProtection()) then return end
     return sql
 end

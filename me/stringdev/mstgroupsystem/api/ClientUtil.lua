@@ -108,17 +108,21 @@ end
 
 ------------------------------------------------------------
 function formatGroup(group)
+	if not (group) then return end
     return GroupFormmater():formatter(group)
 end
 
 function formatGroupPlayer(groupPlayer)
+	if not (groupPlayer) then return end
     return PlayerFormmater():formatter(groupPlayer)
 end
 
 function formatLogs(log)
+	if not (log) then return end
     return LogsFormmater():formatter(log)
 end
 
 function formatTransfer(transfer)
+	if not (transfer) then return end
     return TransferFormmater():formatter(transfer)
 end

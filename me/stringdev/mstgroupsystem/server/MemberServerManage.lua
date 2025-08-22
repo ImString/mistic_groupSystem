@@ -1,5 +1,4 @@
 function invitePlayer(player, idTarget)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
     if not (idTarget) then return end
 
@@ -26,7 +25,6 @@ addEvent("MST:invitePlayer", true)
 addEventHandler("MST:invitePlayer", getRootElement(), invitePlayer)
 
 function joinGroup(player, groupTag)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
 
     if not (getGroupManager():isGroup(groupTag)) then
@@ -54,7 +52,6 @@ addEvent("MST:joinGroup", true)
 addEventHandler("MST:joinGroup", getRootElement(), joinGroup)
 
 function kickPlayerGroup(player, targetAccountName)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
     if not (targetAccountName) then return end
 
@@ -88,7 +85,6 @@ addEvent("MST:kickPlayerGroup", true)
 addEventHandler("MST:kickPlayerGroup", getRootElement(), kickPlayerGroup)
 
 function promotePlayer(player, targetAccountName)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
     if not (targetAccountName) then return end
 
@@ -127,7 +123,6 @@ addEvent("MST:promotePlayer", true)
 addEventHandler("MST:promotePlayer", getRootElement(), promotePlayer)
 
 function demotePlayer(player, targetAccountName)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
     if not (targetAccountName) then return end
 
@@ -177,7 +172,6 @@ addEvent("MST:demotePlayer", true)
 addEventHandler("MST:demotePlayer", getRootElement(), demotePlayer)
 
 function leaveGroup(player)
-    if not (isHaveProtection()) then return end
     if not (player) then return end
 
     local leavedPlayer = getGroupAPI():leavePlayer(player:getAccount():getName())

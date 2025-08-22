@@ -1,13 +1,3 @@
-function IfElse(condition, trueReturn, falseReturn)
-    if (condition == nil) then
-        return falseReturn
-    elseif (condition) then 
-        return trueReturn
-    else
-        return falseReturn 
-    end
-end
-
 function addZero(str)
     if (str > 10) then
         return str
@@ -22,10 +12,6 @@ function escapeQuotes(str)
     return string.gsub(str, "'", "''")
 end
 
-function starts_with(str, start)
-    return str:sub(1, #start) == start
-end
- 
 function ends_with(str, ending)
     return ending == "" or str:sub(-#ending) == ending
 end

@@ -1,6 +1,4 @@
 function onUpdateNick(oldNick, newNick, changedByUser)
-    if not (isHaveProtection()) then return end
-    
     local player = source
     local accountName = getAccountName(getPlayerAccount(player))
 
